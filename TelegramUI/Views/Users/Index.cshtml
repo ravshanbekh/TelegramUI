@@ -38,7 +38,7 @@
         }
 
         .left {
-            flex: 5%;
+            width:60px;
             background-color:#18122B;
             margin-right: auto;
             padding: 10px;
@@ -50,7 +50,7 @@
         padding: 10px;
        }
         .right {
-            flex: 130%;
+            width: 500px;
             background-color: #393053;
             margin-right: auto;
             padding: 300px;
@@ -74,7 +74,7 @@
         li.chat-item {
             display: flex;
             padding: 15px;
-            border-bottom: 1px solid #D8D8D8;
+            border-bottom: 3px solid #D8D8D8;
             cursor: pointer;
         }
 
@@ -93,6 +93,7 @@
             font-weight: bold;
             font-size: 16px;
             color:#D8D8D8;
+            margin-right:70px;
         }
 
         span.chat-message {
@@ -116,25 +117,38 @@
             overflow: auto;
         }
         .icon-container {
-            text-align: center; /* Center horizontally */
-            line-height: 28px; /* Center vertically */
+            text-align: center; 
+            line-height: 28px; 
         }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+        #user-details-modal {
+            width: 40%; 
+            margin-top: 5px;
+            
+            background-color: #393053;
+            font-size: 30px;
+            color: #D8D8D8;
         }
 
-span.close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
+        #user-details-name,
+        #user-details-phone,
+        #user-details-username,
+        #user-details-bio {
+            margin-top: 1px;
+            font-size: 15px; 
         }
+
+
+
+        
+
+    span.close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body>
@@ -142,7 +156,7 @@ span.close {
     <a asp-action="Create">Create New</a>
     </p>
     <div class="container">
-        <div class="left col-md-2">
+        <div class="left col-md-2" style="margin-bottom:50px">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <button class="btn"><i class="fa fa-bars" style="color:#4477CE"></i></button>
             <div class="icon-container">
@@ -153,21 +167,15 @@ span.close {
         <i class="fa fa-bullhorn" aria-hidden="true" style="margin-top:20px; color:#4477CE;font-size:28px"></i>
     </div>
         </div>
-        <div class="middle col-md-6">
+        <div class="middle col-md-6" style="margin-bottom:50px">
             <input type="text" id="search-input" placeholder="Search...">
 
             <ul class="chat-list">
                 @foreach (var item in Model)
                 {
                     <li class="chat-item" style="border:3px">
-                        <img src="" alt="Avatar" class="avatar">
-                        <div class="chat-details" >
-                            <span class="chat-name">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span><br>
-                        </div>
                         <div class="action-links">
-                           <a href="#" onclick="showUserDetails('@item.FirstName', '@item.LastName', '@item.Phone', '@item.UserName', '@item.Bio')">Details</a> |
-                           <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                           <a href="#" onclick="deleteUser('@item.Id')">Delete</a>
+                           <a href="#" onclick="showUserDetails('@item.FirstName', '@item.LastName', '@item.Phone', '@item.UserName', '@item.Bio')"><span class="chat-name" style="margin-right:130px">@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</span><br></a> 
                         </div>
                     </li>
                 }
@@ -175,17 +183,13 @@ span.close {
         </div>
 
 
-        <div class="right col-md-10">
-            <p>Salom</p>
-            <div id="user-details-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeUserDetailsModal()">&times;</span>
-                    <h2>User Details</h2>
-                    <p><strong>Name: </strong><span id="user-details-name"></span></p>
-                    <p><strong>Phone: </strong><span id="user-details-phone"></span></p>
-                    <p><strong>Username: </strong><span id="user-details-username"></span></p>
-                    <p><strong>Bio: </strong><span id="user-details-bio"></span></p>
-                </div>
+        <div class="right col-md-10" style="margin-bottom:50px">
+            <div id="user-details-modal" style="margin-top:-280px;margin-left:-100px">
+                    <h2 style="color:#D8D8D8">About</h2>
+                    <p><span id="user-details-name" style="color:#D8D8D8"></span></p>
+                    <p><span id="user-details-phone" style="color:#D8D8D8"></span></p>
+                    <p><span id="user-details-username" style="color:#D8D8D8"></span></p>
+                    <p><span id="user-details-bio" style="color:#D8D8D8"></span></p>
             </div>
         </div>
     </div>
